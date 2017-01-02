@@ -1,0 +1,34 @@
+body {
+ font-family: -apple-system, 
+              BlinkMacSystemFont, 
+              "Segoe UI", 
+              Roboto, 
+              Oxygen-Sans, 
+              Ubuntu, 
+              Cantarell, 
+              "Helvetica Neue", 
+              sans-serif;
+  font-size: 22pt;
+  background: grey;
+}
+
+h1 {
+  color: purple;
+  font-size: inherit;
+  font-weight: normal;
+}
+
+form {
+  font-size: 16pt;
+}
+
+input#urlPicker {
+  padding: 3pt;
+}
+
+#controls {
+  color: black;
+  margin: 40pt;
+  padding: 30pt;
+  background: white;
+}
