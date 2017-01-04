@@ -8,27 +8,132 @@ body {
               Cantarell, 
               "Helvetica Neue", 
               sans-serif;
-  font-size: 22pt;
-  background: grey;
+  font-size: 120%;
+  background: #333538;
+  color: white;
 }
 
-h1 {
-  color: purple;
-  font-size: inherit;
+#initialHeader {
+  display: flex;
+  padding: 1em;
+  align-items: baseline;
+}
+
+#initialHeader h1 {
+  font-size: 1em;
   font-weight: normal;
+  padding: 0;
+  margin: 0;
+  margin-right: 1em;
+  letter-spacing: .25em;
+}
+
+#initialHeader p {
+  font-size: 1em;
+  flex-grow: 1;
+  padding: 0;
+  margin: 0;
+}
+
+#initialHeader button#uploadButton {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+  border-radius: 40px;
+  margin: 0;
+  margin-left: 1em;
+  padding: .25em 1em;
+  text-transform: uppercase;
+  border: none;
+  font-size: inherit;
 }
 
 form {
-  font-size: 16pt;
+  font-size: 16px;
 }
 
 input#urlPicker {
-  padding: 3pt;
+  padding: 3px;
 }
 
-#controls {
-  color: black;
-  margin: 40pt;
-  padding: 30pt;
+#initial {
+  margin: auto;
+  max-width: 900px;
+}
+
+#rendererControls {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#rendererControls button.iconButton {
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#works {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+#works .work {
+  flex: 0 0 100%;
+  margin: 1em;
+}
+
+#works .work a {
+  display: block;
+  position: relative;
+  width: 280px;
+  height: 280px;
+  margin: 10px;
+  padding: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.20);
+  border-radius: 8px;
+}
+
+#works .work {
+  margin: 0;
+  padding: 0;
+}
+
+#works .work h2 {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background: white;
+  color: black;
+  opacity: 0;
+  font-size: 1em;
+  margin: 0;
+  text-align: center;
+  transition: opacity 0.2s;
+}
+
+#works .work:hover h2 {
+  visibility: visible;
+  opacity: 1.0;
+}
+
+
+@media (min-width: 600px) {
+  #works > .work {
+  flex: 0 0 50%;
+ }
+}
+
+@media (min-width: 900px) {
+  #works > .work {
+  flex: 0 0 33%;
+ }
 }

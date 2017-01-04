@@ -1,45 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
-
-// import * as ti from './testink';
-
 import * as Quill from './quill/Quill'
-
-// import QuillViewer from './quill/renderquill'
+// import MdArrowBack from 'react-icons/md/arrow-left'
+import MdArrowBack from 'react-icons/lib/md/arrow-back';
+import { users, works } from './test-data';
 
 var quillURLs = [
   '/data/bg_black_1white_1grey_1pink'
 ]
 
-class Controls extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: quillURLs[0],
-    };
-  }
 
-  handleChange = (event) => {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit = (event) => {
-    this.props.pickURL(this.state.value);
-    event.preventDefault();
-  }
-
+class WorkView extends Component {
   render() {
-    return (
-      <div id="controls">
-        <form onSubmit={this.handleSubmit}>
-          <label>
-            Quill URL:
-            <input id="urlPicker" type="text" value={this.state.value} onChange={this.handleChange} />
-          </label>
-          <input type="submit" value="Submit" />
-        </form>
-      </div>
-    );
+    var {
+      bgColor,
+      baseURL,
+      name,
+      previewURL,
+    } = this.props.work;
+    return <div className='work'>
+      <a href='' onClick={ (e) => {this.props.pickURL(baseURL); e.preventDefault();} }
+      style={ {
+        backgroundColor: bgColor,
+        backgroundImage: `url("${previewURL}")`,
+      } }>
+        <h2>{name}</h2>
+      </a>
+    </div>
   }
 }
 
@@ -69,7 +56,13 @@ class App extends Component {
           })
         })
       });
+  }
 
+  clearURL = () => {
+    this.setState({
+      quill: null,
+      loadingQuill: null,
+    })
   }
 
   render() {
@@ -82,13 +75,30 @@ class App extends Component {
       return <div>Loading quill {loadingQuill}...</div>;
     } else if (quill) {
       return (
-        <Quill.Renderer quill={quill} />
+        <div>
+          <div id='rendererControls'>
+            <button className='iconButton' onClick={ this.clearURL }>
+              <MdArrowBack size={24} color='white'/>
+            </button>
+          </div>
+          <Quill.Renderer quill={quill} />
+        </div>
       );
     } else {
       return (
-        <div className="App">
-          <h1> Floating Ink</h1>
-          <Controls pickURL={this.pickURL} />
+        <div className='App'>
+          <div id='initialHeader'>
+            <h1>FLOATING.INK</h1>
+            <p>view virtual paintings in your browser</p>
+            <button id='uploadButton'>upload</button>
+          </div>
+          <div id='initial'>
+            <div id='works'>
+              {works.concat(works).concat(works).concat(works).map((w) =>
+                <WorkView work={w} pickURL={this.pickURL} />
+              )}
+            </div>
+          </div>
         </div>
       );
     }
