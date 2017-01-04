@@ -1,4 +1,4 @@
-export const users = [
+const users = [
   {
     'name': 'Andrew Pouliot',
     'id': 'andrew',
@@ -9,7 +9,7 @@ export const users = [
   },
 ];
 
-export const works = [
+const works = [
   {
     'id': 'bg_blue',
     'name': 'Example Blue',
@@ -36,4 +36,6 @@ export const works = [
   },
 ];
 
-export const workById = (workId) => works.find( (u) => u.id == workId );
+const workById = (workId) => works.find( (u) => u.id == workId );
+
+module.exports = {users, works, workById};

@@ -3,7 +3,7 @@ import MdArrowBack from 'react-icons/lib/md/arrow-back';
 import * as Quill from './quill/Quill';
 import {Link} from 'react-router';
 
-import { workById } from './test-data';
+import { workById } from '../backend/test-data';
 
 class QuillController extends Component {
   constructor(props) {

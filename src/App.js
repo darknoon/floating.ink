@@ -3,7 +3,7 @@ import './App.css';
 import * as Quill from './quill/Quill'
 // import MdArrowBack from 'react-icons/md/arrow-left'
 import MdArrowBack from 'react-icons/lib/md/arrow-back';
-import { users, works } from './test-data';
+import { users, works } from '../backend/test-data';
 import { Link } from 'react-router';
 
 var quillURLs = [
