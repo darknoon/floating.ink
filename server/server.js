@@ -75,6 +75,6 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true,
 }));
-app.listen(4000);
+app.listen(process.env.PORT || 4000);
 
-console.log("server listening on port 4000");
+console.log(`API server listening on port ${process.env.PORT}. graphiql available at /graphql`);

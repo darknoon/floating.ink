@@ -1,0 +1,13 @@
+# Configuration for gcloud deployment
+# https://cloud.google.com/appengine/docs/flexible/nodejs/configuring-your-app-with-app-yaml
+# https://console.cloud.google.com/home/dashboard?project=floating-ink
+
+# [START runtime]
+runtime: nodejs
+env: flex
+# [END runtime]
+
+# Temporary setting to keep gcloud from uploading node_modules
+skip_files:
+- ^(.*/)?\..*$
+- ^node_modules$
