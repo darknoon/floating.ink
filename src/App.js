@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getAllWorks } from '../backend/test-data';
+import { getAllWorks } from './test-data';
 import { Link } from 'react-router';
 
 class WorkView extends Component {

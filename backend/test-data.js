@@ -9,8 +9,6 @@ const users = [
   },
 ];
 
-const userById = (userId) => users.find( (u) => u.id == userId );
-
 const works = [
   {
     'id': 'bg_blue',
@@ -30,7 +28,7 @@ const works = [
   },
   {
     'id': 'bg_black_1white_1grey_1pink',
-    'name': 'Example 2',
+    'name': 'Test Drawing',
     'baseURL': 'https://storage.googleapis.com/floating-ink/quills/bg_black_1white_1grey_1pink',
     'previewURL': 'https://storage.googleapis.com/floating-ink/previews/bg_black_1white_1grey_1pink.png',
     'bgColor': '#000000',
@@ -38,10 +36,4 @@ const works = [
   },
 ];
 
-const workById = (workId) => works.find( (u) => u.id == workId );
-
-
-// For now, artificially inflate the number of items shown
-const getAllWorks = () => works.concat(works).concat(works).concat(works);
-
-module.exports = {users, works, workById, getAllWorks};
+module.exports = {users:users, works:works};
