@@ -54,7 +54,7 @@ export class Renderer extends Component {
   }
 
   animate = (delta) => {
-    requestAnimationFrame( this.animate );
+    this._request = requestAnimationFrame( this.animate );
     this.controls.update(delta);
     this.renderer.render( this.scene, this.camera );
   }
@@ -62,7 +62,8 @@ export class Renderer extends Component {
   componentWillUnmount() {
     delete this.camera;
     delete this.renderer;
-    alert("Should cancel animationframe");
+    cancelAnimationFrame(this._request);
+    delete this._request;
   }
 
 }
