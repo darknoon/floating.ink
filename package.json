@@ -12,6 +12,7 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-icons": "^2.2.3",
+    "react-router": "^3.0.0",
     "three": "^0.83.0",
     "three-trackballcontrols": "0.0.5"
   },
