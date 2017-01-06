@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+// Can't import this directly because es6 transform not applied to node_modules. Should fix that I guess...
+// import MdArrowBack from 'react-icons/md/arrow-left'
 import MdArrowBack from 'react-icons/lib/md/arrow-back';
+
 import * as Quill from './quill/Quill';
 import {Link} from 'react-router';
 

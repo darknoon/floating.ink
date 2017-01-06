@@ -82,7 +82,7 @@ export function loadFromURL(quillURL) {
 function parseQuill(q) {
   var version = q.info["Version"];
   if (version !== 1) {
-    throw "Invalid quill version";
+    throw new Error(`Invalid quill version: ${version}`);
   }
 
   return new Quill(q)

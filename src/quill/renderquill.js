@@ -80,7 +80,7 @@ function meshFromPaintLayer(l) {
   var strokeIdx;
   var vertCount = 0;
   for (strokeIdx = 0; strokeIdx < strokes.length; strokeIdx++) {
-    var v = strokes[strokeIdx].entries;
+    let v = strokes[strokeIdx].entries;
     // we generate 2 points per input point (for ribbon geom)
     vertCount += v.length * 2;
 
@@ -96,9 +96,9 @@ function meshFromPaintLayer(l) {
 
   // Extrude quill points into geometry in the arrays
   for (strokeIdx = 0; strokeIdx < strokes.length; strokeIdx++) {
-    var v = strokes[strokeIdx].entries;
+    let v = strokes[strokeIdx].entries;
 
-    var scale = 1000;
+    let scale = 1000;
 
     for (var i = 0; i < v.length; i++) {
       var thick = v[i].thickness;

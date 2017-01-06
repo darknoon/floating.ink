@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 import './App.css';
-import * as Quill from './quill/Quill'
-// import MdArrowBack from 'react-icons/md/arrow-left'
-import MdArrowBack from 'react-icons/lib/md/arrow-back';
-import { users, works } from '../backend/test-data';
+import { getAllWorks } from '../backend/test-data';
 import { Link } from 'react-router';
-
-var quillURLs = [
-  '/data/bg_black_1white_1grey_1pink'
-]
-
 
 class WorkView extends Component {
   render() {
     var {
       bgColor,
-      baseURL,
       name,
       previewURL,
       id,
@@ -44,7 +35,7 @@ class App extends Component {
         </div>
         <div id='initial'>
           <div id='works'>
-            {works.concat(works).concat(works).concat(works).map((w) =>
+            {getAllWorks().map((w) =>
               <WorkView work={w} pickURL={this.pickURL} />
             )}
           </div>
