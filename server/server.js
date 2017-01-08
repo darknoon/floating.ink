@@ -1,16 +1,13 @@
-
-var express = require('express');
-var graphqlHTTP = require('express-graphql');
-var { buildSchema } = require('graphql');
-
-var {users, works } = require('./test-data');
-
+import express from 'express';
+import graphqlHTTP from 'express-graphql';
+import { buildSchema } from 'graphql';
+import {users, works } from './test-data';
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
   type Query {
     hello: String
-    person(name:String!): Person
+    person(id:ID!): Person
     feed: [Work]
   }
 
@@ -27,21 +24,39 @@ var schema = buildSchema(`
   }
 `);
 
+class Work {
+  constructor(id) {
+    var w = works.find( (w) => w.id == id );
+    if (!w) throw Error(`${id} is not a valid work id.`);
+    this._data = w;
+  }
+
+  id = () => this._data.id;
+
+  name = () => this._data.name;
+
+  by = () => new Person(this._data.by);
+}
+
 class Person {
 
   constructor(id) {
     var u = users.find( (u) => u.id === id );
+    if (!u) throw Error(`${id} is not a valid user id.`);
     this._data = u;
-
-    if (!u) throw "Invalid id";
-    // todo make this.works?
   }
 
-  id() { return this._data.id; }
+  id = () => this._data.id;
 
-  name() { this._data.name; }
+  name = () => this._data.name;
 
-  // artworks = () => this.
+  works() {
+    var w = works.filter( (w) => w.by === this._data.id ).map( (ww) => new Work(ww.id) );
+    return {
+      list: w,
+      count: w.length,
+    }
+  }
 }
 
 // The root provides a resolver function for each API endpoint
@@ -51,20 +66,15 @@ var root = {
   },
 
   person: (args) => {
-    return {
-      'name': args.name,
-      'id':'jayz12341',
-    }
+    return new Person(args.id)
   },
 
   feed: () => {
-    return works.map( (w) => ({
-      'id': w.id,
-      'name' : 'work name',
-      'by': new Person(w.by),
-    }) );
+    return works.map( (w) => new Work(w.id) );
   },
 };
+
+var port = process.env.PORT || 4000;
 
 var app = express();
 // app.use( (req, res, next) => {
@@ -75,6 +85,6 @@ app.use('/graphql', graphqlHTTP({
   rootValue: root,
   graphiql: true,
 }));
-app.listen(process.env.PORT || 4000);
+app.listen(port);
 
-console.log(`API server listening on port ${process.env.PORT}. graphiql available at /graphql`);
+console.log(`API server listening on port ${port}. graphiql available at /graphql`);

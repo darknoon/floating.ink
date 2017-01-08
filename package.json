@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "babel-node --inspect server/server.js",
-    "client": "babel-node start-client.js",
+    "server": "cd server; babel-node --inspect server.js",
+    "client": "cd client; npm start",
     "test": "cd client; npm test",
     "deploy-client": "cd client; npm run deploy",
     "deploy-server": "cd server; npm run deploy",
@@ -23,7 +23,6 @@
   },
   "homepage": "https://github.com/darknoon/floating.ink#readme",
   "devDependencies": {
-    "babel-cli": "^6.18.0",
     "concurrently": "^3.1.0"
   }
 }
