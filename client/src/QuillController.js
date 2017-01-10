@@ -6,33 +6,54 @@ import MdArrowBack from 'react-icons/lib/md/arrow-back';
 import * as Quill from './quill/Quill';
 import {Link} from 'react-router';
 
-import { workById } from './test-data';
+import API from './api/API'
 
 class QuillController extends Component {
   constructor(props) {
     super(props);
+    var id = props.params.workId;
     this.state = {
+      work: null,
       quill: null,
     }
-    var id = props.params.workId;
-    var work = this._work = workById(id);
-    this._url = work.baseURL;
+    this._id = id;
+  }
+
+    // Prevent React exceptions from being swallowed by promise API :/
+  _setState(s) {
+    var that = this;
+    requestAnimationFrame(() => {
+      that.setState(s);
+    });
   }
 
   componentDidMount() {
+
+    var id = this._id;
+
     var that = this;
-    Quill.loadFromURL(this._url).then( (q) =>{
-      // Prevent exceptions from being swallowed by promise API :/
-      requestAnimationFrame(() => {
-        that.setState({
-          quill: q,
-        })
-      })
+    var api = new API();
+    api.getWork(id).then( (w) => {
+
+      var work = w.data.work;
+
+      // Update our state to include the URL
+      that._setState({
+        work: work,
+        quill: null,
+      });
+
+      return Quill.loadFromURL(work.baseURL);
+    }).then( q =>{
+      that._setState({
+        work: this.state.work,
+        quill: q,
+      });
     });
   }
 
   render() {
-    var quill = this.state.quill, name = this._work.name;
+    let quill = this.state.quill;
 
     if (quill) {
       return (
@@ -48,7 +69,7 @@ class QuillController extends Component {
       </div>);
     } else {
       return (
-      <p>Loading {name}...</p>);
+      <p>Loading {this._id}...</p>);
     }
   }
 }

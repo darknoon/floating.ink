@@ -6,15 +6,18 @@ import {users, works } from './test-data';
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
   type Query {
-    hello: String
     person(id:ID!): Person
+    work(id:ID!): Work
     feed: [Work]
   }
 
   type Work {
     id: ID
     name: String
+    baseURL: String
+    previewURL: String
     by: Person
+    bgColor: String
   }
 
   type Person {
@@ -36,6 +39,12 @@ class Work {
   name = () => this._data.name;
 
   by = () => new Person(this._data.by);
+
+  baseURL = () => this._data.baseURL;
+
+  previewURL = () => this._data.previewURL;
+
+  bgColor = () => this._data.bgColor;
 }
 
 class Person {
@@ -51,27 +60,17 @@ class Person {
   name = () => this._data.name;
 
   works() {
-    var w = works.filter( (w) => w.by === this._data.id ).map( (ww) => new Work(ww.id) );
-    return {
-      list: w,
-      count: w.length,
-    }
+    return works.filter( (w) => w.by === this._data.id ).map( (ww) => new Work(ww.id) );
   }
 }
 
 // The root provides a resolver function for each API endpoint
 var root = {
-  hello: () => {
-    return 'Hello world!';
-  },
+  person: (args) => new Person(args.id),
 
-  person: (args) => {
-    return new Person(args.id)
-  },
+  work: (args) => new Work(args.id),
 
-  feed: () => {
-    return works.map( (w) => new Work(w.id) );
-  },
+  feed: () => works.map( (w) => new Work(w.id) ),
 };
 
 var port = process.env.PORT || 4000;

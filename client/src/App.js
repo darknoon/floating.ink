@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getAllWorks } from './test-data';
 import { Link } from 'react-router';
+import API from './api/API'
 
 class WorkView extends Component {
   render() {
@@ -23,7 +23,34 @@ class WorkView extends Component {
   }
 }
 
+function WorkList(props) {
+  if (!props.works) return null;
+
+  return (
+    <div id='initial'>
+      <div id='works'>
+        {props.works.map((w) =>
+          <WorkView work={w} pickURL={props.pickURL} key={w.id} />
+        )}
+      </div>
+    </div>
+  );
+}
+
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {feed: null}
+  }
+
+  componentDidMount() {
+    this._request = new API().getFeed().then( data => {
+      var feed = data.data.feed;
+      console.log("Fetched data");
+      this.setState({feed})
+    }).catch( err => console.log(err) );
+  }
 
   render() {
     return (
@@ -33,13 +60,7 @@ class App extends Component {
           <p>view virtual paintings in your browser</p>
           {/*<button id='uploadButton'>upload</button>*/}
         </div>
-        <div id='initial'>
-          <div id='works'>
-            {getAllWorks().map((w) =>
-              <WorkView work={w} pickURL={this.pickURL} />
-            )}
-          </div>
-        </div>
+        <WorkList works={this.state.feed} pickURL={this.pickURL} />
       </div>
     );
   }
