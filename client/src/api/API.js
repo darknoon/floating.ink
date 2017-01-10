@@ -1,5 +1,6 @@
 
-const endpoint ='/graphql';
+const isProd = process.env.NODE_ENV === 'production';
+const endpoint = isProd ? 'https://floating-ink.appspot-preview.com/graphql' : '/graphql';
 
 export default class API {
 
