@@ -1,7 +1,8 @@
 import express from 'express';
 import graphqlHTTP from 'express-graphql';
 import { buildSchema } from 'graphql';
-import {users, works } from './test-data';
+import { users, works } from './test-data';
+import cors from 'cors';
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
@@ -76,10 +77,9 @@ var root = {
 var port = process.env.PORT || 4000;
 
 var app = express();
-// app.use( (req, res, next) => {
-//   next();
-// })
-app.use('/graphql', graphqlHTTP({
+
+// Enable CORS via cors module so we can run api server on a different domain :/
+app.use('/graphql', cors(), graphqlHTTP({
   schema: schema,
   rootValue: root,
   graphiql: true,

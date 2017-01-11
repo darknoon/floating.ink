@@ -7,6 +7,7 @@
     "start": "node build/server.js",
     "monitor": "nodemon --exec npm run babel-node -- src",
     "babel-node": "babel-node src/server.js --ignore='node_modules'",
+    "predeploy": "npm run build",
     "deploy": "gcloud app deploy app.yaml",
     "build": "babel src -d build",
     "serve": "node build/server.js",
@@ -15,6 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
     "graphql": "^0.8.2"
@@ -29,4 +31,3 @@
     "nodemon": "^1.11.0"
   }
 }
-  
