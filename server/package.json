@@ -5,17 +5,19 @@
   "main": "server.js",
   "scripts": {
     "start": "node build/server.js",
-    "monitor": "nodemon --exec npm run babel-node -- src",
+    "monitor": "nodemon --exec npm run babel-node",
     "babel-node": "babel-node src/server.js --ignore='node_modules'",
     "predeploy": "npm run build",
     "deploy": "gcloud app deploy app.yaml",
     "build": "babel src -d build",
     "serve": "node build/server.js",
-    "preserve": "npm run build"
+    "preserve": "npm run build",
+    "emulate-datastore": "gcloud beta emulators datastore start --no-legacy"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@google-cloud/datastore": "^0.6.1",
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
